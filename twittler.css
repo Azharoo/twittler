@@ -1,0 +1,141 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+v2.0 | 20110126
+License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  line-height: 1.8em;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-spacing: 0;
+}
+/* Custom */
+body {
+  background: #e6ecf0;
+  color: #14171a;
+  line-height: 20px;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+div {
+  display: block;
+}
+
+.main {
+  background: #e8f5fd;
+  float: left;
+  width: 750px;
+  padding: 0px 25px 25px 25px;
+}
+.tweet-box {
+  margin: auto;
+  width: 100%;
+  color: #1da1f2;
+  background-color: #f5f8fa;
+  text-align: center;
+}
+.btn {
+  border-radius: 20px;
+  background: #1da1f2;
+  border: none;
+  margin: 10px 10px 10px 10px;
+  width: 60px;
+  height: 30px;
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+.new-tweets {
+  display: none;
+  font-size: 14px;
+  text-align: center;
+  border-bottom: 1px solid #e6ecf0;
+  border-style: groove;
+  background: #e8f5fd;
+}
+.user {
+  color: #14171a;
+  font-size: 14px;
+  font-weight: bold;
+}
+.timeago {
+  font-size: 12px;
+  color: #657786;
+}
+
+li {
+  display: list-item;
+  list-style: none;
+  background-clip: padding-box;
+  border-bottom: 1px solid #e6ecf0;
+  border-style: groove;
+  height: 80px;
+}
+.message {
+  font-size: 14px;
+  line-height: 20px;
+}
+.dashboard-right {
+  display: none;
+  float: left;
+  width: 35%;
+}
+.timeline {
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+#clear-filter {
+  float: right;
+  font-weight: normal;
+  font-size: 12px;
+  color: #55bbf6;
+}
+.user-tweets {
+  padding: 0px 25px 25px 25px;
+}
+
+.user:hover, .new-tweets:hover, .btn:hover, #clear-filter:hover {
+  cursor: pointer;
+
+}
+#clear-filter:hover {
+  text-decoration: underline;
+}
+.new-tweets:hover {
+  background: #1da1f2;
+}
