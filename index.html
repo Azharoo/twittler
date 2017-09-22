@@ -1,27 +1,99 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="twittler.css">
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <script src="timeago.js" type="text/javascript"></script>
+    <title>Twittler</title>
   </head>
   <body>
-    <script>
+    <div class='tweet-box'>
+      <label for='tweetInput'>@</label>
+      <input type='text' id='tweetInput' name='tweetInput' placeholder="username"></input>
+      <label for='tweetMessage'>:</label>
+      <input type='text' id='tweetMessage' name='tweetMessage' placeholder="message"></input>
+      <button id='send-tweet' class='btn'>Tweet</button>
+    </div>
+    <div class='main'>
+      <div class='new-tweets'></div>
+      <div class='stream'>
+        <ol class='tweet-container'></ol>
+      </div>
+    </div>
+    <div class='dashboard-right'>
+      <div class='timeline'><span class='timelineUser'></span>' Timeline<span id='clear-filter'>Clear</span></div>
+      <div class='user-tweets'></div>
+    </div>
 
-      $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
+      <script>
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
+        $(document).ready(function(){
+          var $body = $('body');
+          var numTweets = 0;
+          /* <small class="time">' + time + '</small> */
+          var showTweets = function() {
+            while(numTweets < streams.home.length){
+              var tweet = streams.home[numTweets];
+              var date = new Date();
+              var time = date.toISOString();
+              var $tweet = $('<li class="tweet"><span><strong class="user">@' + tweet.user + '</strong></span> <time class="timeago" datetime="' + time + '">' + time + '</time> <p class="message">' + tweet.message + '</p></li>');
+              
+              $tweet.prependTo($('.tweet-container'));
+              numTweets ++;
+              $('time.timeago').timeago();
+            }
+          };
+          showTweets();
 
-      });
+          setInterval(function() {
+            var numNewTweets = streams.home.length - numTweets;
+            if (numNewTweets > 0) {
+              $('.new-tweets').text('See ' + numNewTweets + ' Tweets');
+              $('.new-tweets').slideDown();
+            }
+          }, 5000);
 
-    </script>
+          $('.new-tweets').on('click', function() {
+            showTweets();
+            $('.new-tweets').slideUp();
+          });
+
+
+          $('.tweet-container').on('click', '.user', function() {
+            $('.dashboard-right').show();
+            $('.timelineUser').html('');
+            $('.user-tweets').html('');
+            var tweets = $('.tweet');
+            var user = $(this).text().trim();
+            $('.timelineUser').append(user.slice(1));
+            for(let i = 0; i < tweets.length; i++) {
+              var tweetUser = tweets.eq(i).find('.user').text().trim();
+              if (tweetUser === user) {
+                tweets.eq(i).clone().appendTo($('.user-tweets'));
+              }
+            }
+          });
+
+          $('#clear-filter').on('click', function() {
+            $('.dashboard-right').hide();
+          });
+
+          $('#send-tweet').on('click', function() {
+            window.visitor = $('#tweetInput').val();
+            var message = $('#tweetMessage').val();
+
+            if(visitor.length && message.length) {
+              streams.users[visitor] = [];
+              writeTweet(message);
+              showTweets();
+            }
+            $('#tweetInput').val('');
+            $('#tweetMessage').val('');
+          });
+
+        });
+
+      </script>
   </body>
 </html>
